@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Insert title here</title>
+<title><%=request.getAttribute("title") %></title>
 
 <jsp:include page="common/res.jsp"></jsp:include>
 </head>
@@ -15,14 +15,14 @@
 	<jsp:include page="common/navbar.jsp"></jsp:include>
 
 	<div class="container">
-		<div class="row my-3">
-			<h2 class="col">Add Student</h2>
+		<div class="row mt-3">
+			<h2 class="col-10">Add New Student</h2>
 		</div>
 	</div>
 
 	<hr>
-	<div class="container">
-		<form action="add-student" method="post" class="form col-5 my-5">
+	<div class="container mb-5">
+		<form action="add-student" method="post" class="form col-5 pb-5">
 			<div class="mb-3">
 				<label for="" class="form-label">Student Name</label> <input type="text"
 					class="form-control" name="std-name" required="required">

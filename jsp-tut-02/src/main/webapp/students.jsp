@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Insert title here</title>
+<title><%=request.getAttribute("title") %></title>
 
 <jsp:include page="common/res.jsp"></jsp:include>
 </head>

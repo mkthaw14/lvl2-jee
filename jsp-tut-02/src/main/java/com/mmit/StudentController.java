@@ -71,22 +71,30 @@ public class StudentController extends HttpServlet
     	System.out.println("Path : " + request.getServletPath());
     	String path = request.getServletPath();
     	String page = "";
+    	String title = "";
+    	
     	if(path.equals("/students"))
     	{
+    		title = "Students";
     		page = "/students.jsp";
     	}
     	else if(path.equals("/student-add"))
     	{
+    		title = "Student|Add";
     		page = "/student-add.jsp";
     	}
     	else if(path.equals("/batches"))
     	{
+    		title = "Batch";
     		page = "/batches.jsp";
     	}
-    	else if(path.equals("/home"))
+    	else 
     	{
+    		title = "Home";
     		page = "/index.jsp";
     	}
+    	
+    	request.setAttribute("title", title);
 		getServletContext().getRequestDispatcher(page).forward(request, response);
 	}
 
