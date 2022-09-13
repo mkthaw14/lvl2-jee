@@ -1,0 +1,89 @@
+<!DOCTYPE html >
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
+
+<h:head>
+
+	<h:outputScript library="webjars" name="jquery/3.6.0/jquery.js"></h:outputScript>
+	<h:outputStylesheet library="webjars"
+		name="bootstrap/5.1.3/css/bootstrap.min.css"></h:outputStylesheet>
+    
+    
+    <!-- Main Title -->
+	<title>
+		<ui:insert name="title">Home</ui:insert>
+	</title>
+	<style type="text/css">
+a.active {
+	background-color: #0dcaf0 !important;
+	color: white !important; /* !important is overriding bootstrap class */
+}
+
+li a:hover {
+	background-color: #6ee0f7;
+	color: white !important;
+}
+</style>
+</h:head>
+<body>
+	<div class="container-fluid" style="height: 100vw;">
+		<div class="row h-100">
+			<div class="col-2 bg-light">
+				<div class="text-center pt-3">
+					<h:graphicImage library="img" name="admin_2.png" styleClass="w-90" />
+					<h5 class="pt-3 text-info">Bootcamp Management System</h5>
+				</div>
+
+				<hr />
+				<div class="pt-3">
+					<ul class="nav flex-column text-center">
+						<li class="nav-item">
+							<h:link outcome="/index"
+								styleClass="nav-link #{view.viewId eq '/index.xhtml' or view.viewId eq '/level-add.xhtml' ? 'active' : ''}" value="Level"></h:link>
+						</li>
+						<li class="nav-item">
+							<h:link outcome="/batch-list"
+								styleClass="nav-link #{view.viewId eq '/batch-list.xhtml' or view.viewId eq '/batch-add.xhtml' ? 'active' : ''}" value="Batch">
+								</h:link>
+						</li>
+						<li class="nav-item">
+							<h:link outcome="/course-list"
+								styleClass="nav-link #{view.viewId eq '/course-list.xhtml' or view.viewId eq '/course-add.xhtml' ? 'active' : ''}" value="Course">
+								</h:link>
+						</li>
+						
+						<li class="nav-item"> 
+							<h:link outcome="/bootcamper-list" styleClass="nav-link #{view.viewId eq '/bootcamper-list.xhtml' or view.viewId eq '/bootcamper-add.xhtml' ? 'active' : ''}" value="Bootcamper"></h:link>
+						</li>
+					</ul>
+				</div>
+
+			</div>
+			<div class="col ">
+				<div class="row pt-3">
+					<h3 class="col-10">
+						<ui:insert name="sub-title">Sub Title</ui:insert>
+					</h3>
+					<!-- Add Link -->
+					<ui:insert name="add-link">
+						
+					</ui:insert>
+
+				</div>
+				<hr />
+				
+				<!-- content body -->
+				<ui:insert name="content"></ui:insert>
+			</div>
+		</div>
+		<div class="row bg-dark bg-gradient fixed-bottom">
+			<p class="text-center text-white small pt-3">Copyright @MMIT</p>
+		</div>
+	</div>
+	
+
+</body>
+</html>
