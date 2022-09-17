@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Objects;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -17,6 +18,7 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name = "bootcampers")
 @NamedQuery(name = "getAllBootcamper", query = "Select b from Bootcamper b")
+@NamedQuery(name = "checkEmail", query = "Select b from Bootcamper b Where b.email = :b_email")
 public class Bootcamper implements Serializable 
 {
 
@@ -30,6 +32,7 @@ public class Bootcamper implements Serializable
 	private int id;
 	private String name;
 	private String phone;
+	@Column(unique = true)
 	private String email;
 	private String city;
 	private LocalDate registerDate;

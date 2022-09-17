@@ -13,7 +13,7 @@
 			styleClass="btn btn-info col-1"></h:link>
 	</ui:define>
 	<ui:define name="content">
-		<h:form styleClass="form col-5">
+		<h:form styleClass="form col-5" id="reg-bootcamper">
 			<div class="mb-3 alert alert-danger #{empty facesContext.messageList ? 'd-none' : ''}">
 				<h:messages />
 			</div>
@@ -42,7 +42,9 @@
 			<div class="mb-3">
 				<label for="" class="form-label">Email</label>
 				<h:inputText value="#{bootcamperBean.bootcamper.email}"
-					styleClass="form-control" p:type="email" p:required="required" />
+					styleClass="form-control" p:type="email" p:required="required" 
+					id="btc-email">
+				</h:inputText>
 			</div>
 			<div class="mb-3">
 				<label for="" class="form-label">Phone</label>
@@ -57,7 +59,7 @@
 
 
 			<div class="mb-3">
-				<h:commandButton action="#{bootcamperBean.save}" value="Save"
+				<h:commandButton actionListener="#{bootcamperBean.checkEmail}" action="#{bootcamperBean.save}" value="Save"
 					styleClass="btn btn-success" />
 			</div>
 		</h:form>

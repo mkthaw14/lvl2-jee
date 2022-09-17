@@ -11,6 +11,8 @@ import com.mmit.services.BootCamperService;
 
 import jakarta.annotation.PostConstruct;
 import jakarta.faces.annotation.RequestParameterMap;
+import jakarta.faces.application.FacesMessage;
+import jakarta.faces.context.FacesContext;
 import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
@@ -32,6 +34,9 @@ public class BootcamperBean implements Serializable
 	private BootCamperService service;
 	@Inject
 	private BatchService batchService;
+	
+	@Inject
+	private FacesContext context;
 	
 	@RequestParameterMap
 	@Inject
@@ -105,6 +110,9 @@ public class BootcamperBean implements Serializable
 	
 	public String save()
 	{
+		if(context.isValidationFailed())
+			return null;
+		
 		service.save(bootcamper);
 		return "/bootcamper-list?faces-redirect=true";
 	}
@@ -117,4 +125,17 @@ public class BootcamperBean implements Serializable
 		return "/bootcamper-list?faces-redirect=true";
 	}
 	
+	//Action Listener method
+	public void checkEmail()
+	{
+		if(!service.validateEmail(bootcamper.getEmail()))
+		{
+			System.out.println("Email exist");
+			FacesMessage msg = new FacesMessage("Email exist");
+			
+			//form id : component id
+			context.addMessage("reg-bootcamper: btc-email", msg);
+			context.validationFailed();
+		}
+	}
 }

@@ -9,6 +9,8 @@ import com.mmit.services.BatchService;
 
 import jakarta.annotation.PostConstruct;
 import jakarta.faces.annotation.RequestParameterMap;
+import jakarta.faces.application.FacesMessage;
+import jakarta.faces.context.FacesContext;
 import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
@@ -26,6 +28,9 @@ public class BatchBean implements Serializable
 	
 	@Inject
 	private BatchService service;
+	
+	@Inject
+	private FacesContext context;
 	
 	@RequestParameterMap
 	@Inject
@@ -59,7 +64,24 @@ public class BatchBean implements Serializable
 	
 	public String save()
 	{
+		if(context.isValidationFailed())
+			return null;
+		
 		service.save(batch);
 		return "/batch-list?faces-redirect=true";
+	}
+	
+	//Action Listener method
+	public void checkBatchNameAndLevel()
+	{
+		if(service.batchNameAndLevelIdExist(batch))
+		{
+			System.out.println("Batch name and level id exist");
+			FacesMessage msg = new FacesMessage("Batch name and level id exist");
+			
+			//Form id : component id
+			context.addMessage("reg-batch:batch-name", msg);
+			context.validationFailed();
+		}
 	}
 }

@@ -6,8 +6,10 @@ import com.mmit.entities.Batch;
 
 import jakarta.ejb.Stateless;
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.NoResultException;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.TypedQuery;
+import jakarta.persistence.metamodel.Type;
 
 
 @Stateless
@@ -42,6 +44,23 @@ public class BatchService
 		TypedQuery<Batch> query = em.createNamedQuery("findByLevelID", Batch.class);
 		query.setParameter("lvl_Id", lvlId);
 		return query.getResultList();
+	}
+
+	public boolean batchNameAndLevelIdExist(Batch batch) {
+	    TypedQuery<Batch> query = em.createNamedQuery("findBatchNameAndLevel", Batch.class);
+	    query.setParameter("b_name", batch.getName());
+	    query.setParameter("b_level_id", batch.getLevel().getId());
+	     
+	    try
+	    {
+	    	query.getSingleResult();
+	    }
+	    catch (NoResultException e)
+	    {
+	    	System.out.println(e.getMessage());
+	    	return false;
+	    }
+		return true;
 	}
 
 }

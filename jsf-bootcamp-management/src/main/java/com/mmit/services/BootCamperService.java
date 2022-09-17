@@ -7,8 +7,10 @@ import com.mmit.entities.Bootcamper;
 
 import jakarta.ejb.Stateless;
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.NoResultException;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.TypedQuery;
+import jakarta.ws.rs.NotFoundException;
 
 @Stateless
 public class BootCamperService 
@@ -45,5 +47,21 @@ public class BootCamperService
 	public void removeById(int id) {
 		Bootcamper bt = em.find(Bootcamper.class, id);
 		em.remove(bt);
+	}
+
+	public boolean validateEmail(String email) {
+		TypedQuery<Bootcamper> query = em.createNamedQuery("checkEmail", Bootcamper.class);
+		query.setParameter("b_email", email);
+		
+		try
+		{
+			query.getSingleResult();
+		}
+		catch(NoResultException e)
+		{
+			System.out.println(e.getMessage());
+			return true;
+		}
+		return false;
 	}
 }

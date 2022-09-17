@@ -13,7 +13,7 @@
 			styleClass="btn btn-info col-1"></h:link>
 	</ui:define>
 	<ui:define name="content">
-		<h:form styleClass="form col-5">
+		<h:form styleClass="form col-5" id="reg-batch">
 			<div class="mb-3 alert alert-danger #{empty facesContext.messageList ? 'd-none' : ''}">
 				<h:messages />
 			</div>
@@ -27,8 +27,9 @@
 			</div>
 			<div class="mb-3">
 				<label for="" class="form-label">Name</label>
-				<h:inputText value="#{batchBean.batch.name}"
-					styleClass="form-control" p:required="required"/>
+				<h:inputText value="#{batchBean.batch.name}" id="batch-name"
+					styleClass="form-control" p:required="required">
+				</h:inputText>
 			</div>
 			<div class="mb-3">
 				<label for="" class="form-label">Start Date</label>
@@ -40,7 +41,7 @@
 
 			
 			<div class="mb-3">
-				<h:commandButton action="#{batchBean.save}" value="Save" styleClass="btn btn-success" />
+				<h:commandButton actionListener="#{batchBean.checkBatchNameAndLevel}"  action="#{batchBean.save}" value="Save" styleClass="btn btn-success" />
 			</div>
 		</h:form>
 

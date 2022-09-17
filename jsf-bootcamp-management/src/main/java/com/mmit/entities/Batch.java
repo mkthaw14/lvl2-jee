@@ -23,10 +23,15 @@ import static jakarta.persistence.CascadeType.MERGE;
  *
  */
 @Entity
-@Table(name = "batches")
+@Table(
+		name = "batches",
+		uniqueConstraints = {
+			@UniqueConstraint(columnNames = {"name", "level_id"})
+		} 
+)
 @NamedQuery(name = "getAllBatch", query = "Select b from Batch b")
 @NamedQuery(name = "findByLevelID", query = "Select b from Batch b, Level l Where l.id = :lvl_Id And l.id = b.level.id")
-
+@NamedQuery(name = "findBatchNameAndLevel", query = "Select b from Batch b Where b.name = :b_name And b.level.id = :b_level_id")
 public class Batch implements Serializable {
 
 	
